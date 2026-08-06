@@ -53,16 +53,41 @@ $ PLATFORM=microshift WORKLOAD=full-run.yaml ./run.sh
 
 When `PLATFORM=microshift`, `LOCAL` defaults to `true` and `METRICS` defaults to `false` because MicroShift has no in-cluster Prometheus. `LOCAL=true` is a hard requirement on MicroShift today — `run.sh` exits immediately if `PLATFORM=microshift` is set with `LOCAL=false`. To collect metrics on MicroShift, set `METRICS=true` and point `PROMETHEUS_URL` at an external Prometheus.
 
+## VM bridge and localnet
+
+These modes run VMs only (`--vm --pod=false`). Equivalent k8s-netperf invocations:
+
+Bridge (requires virtctl):
+
+```sh
+# k8s-netperf --pod=false --vm --bridge br0 --use-virtctl
+$ VM=true POD=false BRIDGE=br0 USE_VIRTCTL=true ./run.sh
+```
+
+Localnet (creates a CUDN from the named localnet; VM IPs from the JSON config):
+
+```sh
+# k8s-netperf --localnet physnet --localnet-config localnetNetwork.json --vm --pod=false
+$ VM=true POD=false LOCALNET=physnet LOCALNET_CONFIG=localnetNetwork.json ./run.sh
+```
+
+```sh
+$ NETPERF_VERSION=main VM=true POD=false LOCALNET=physnet LOCALNET_CONFIG=localnetNetwork.json USE_VIRTCTL=true ALL_SCENARIOS=false ./run.sh
+```
+
 ## Environment Variables
 
 | Variable                | Description              | Default |
 |-------------------------|--------------------------|---------|
 | ALL_SCENARIOS | Run all test scenarios (hostNetwork & podNetwork) | true |
+| BRIDGE | Bridge NAD name passed as `--bridge` | unset |
 | CLEAN_UP | Clean-up resources created by k8s-netperf | true |
 | DEBUG | Enable debug log level for k8s-netperf | true |
 | ES_SERVER | Server to send results | `None` (Please set your own that resembles https://USER:PASSWORD@HOSTNAME:443) |
 | EXTERNAL_SERVER_ADDRESS | IP address where the external server is running. User has to configure the external server with the required k8s-netperf driver | unset |
 | LOCAL | Run network performance test pods on the same node | `true` when `PLATFORM=microshift`, otherwise `false` |
+| LOCALNET | Localnet network name → `--localnet` (used by k8s-netperf to create the CUDN) | unset |
+| LOCALNET_CONFIG | Path to localnet VM IP JSON → `--localnet-config` (e.g. `localnetNetwork.json`) | unset |
 | METRICS | Enable collection of metrics by k8s-netperf | `false` when `PLATFORM=microshift`, otherwise `true` |
 | NETPERF_FILENAME | Filename of the k8s-netperf binary that run.sh executes | k8s-netperf |
 | NETPERF_URL | URL to download k8s-netperf | https://github.com/cloud-bulldozer/k8s-netperf/releases/download/${NETPERF_VERSION}/k8s-netperf_${OS}_${NETPERF_VERSION}_${ARCH}.tar.gz |
