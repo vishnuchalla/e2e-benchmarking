@@ -115,6 +115,7 @@ add_flag "pod" "${POD}"
 add_flag "udnl2" "${UDNL2}"
 add_flag "udnl3" "${UDNL3}"
 add_flag "bridge" "${BRIDGE}"
+add_flag "bridge-config" "${BRIDGE_CONFIG}"
 add_flag "localnet" "${LOCALNET}"
 add_flag "localnet-config" "${LOCALNET_CONFIG}"
 # Add virtctl flag if VM mode is enabled

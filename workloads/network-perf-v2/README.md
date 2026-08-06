@@ -60,8 +60,8 @@ These modes run VMs only (`--vm --pod=false`). Equivalent k8s-netperf invocation
 Bridge (requires virtctl):
 
 ```sh
-# k8s-netperf --pod=false --vm --bridge br0 --use-virtctl
-$ VM=true POD=false BRIDGE=br0 USE_VIRTCTL=true ./run.sh
+# k8s-netperf --pod=false --vm --bridge br0 --bridge-config bridgeNetwork.json --use-virtctl
+$ VM=true POD=false BRIDGE=br0 BRIDGE_CONFIG=bridgeNetwork.json USE_VIRTCTL=true ./run.sh
 ```
 
 Localnet (creates a CUDN from the named localnet; VM IPs from the JSON config):
@@ -81,6 +81,7 @@ $ NETPERF_VERSION=main VM=true POD=false LOCALNET=physnet LOCALNET_CONFIG=localn
 |-------------------------|--------------------------|---------|
 | ALL_SCENARIOS | Run all test scenarios (hostNetwork & podNetwork) | true |
 | BRIDGE | Bridge NAD name passed as `--bridge` | unset |
+| BRIDGE_CONFIG | Path to bridge VM IP JSON → `--bridge-config` (e.g. `bridgeNetwork.json`) | unset |
 | CLEAN_UP | Clean-up resources created by k8s-netperf | true |
 | DEBUG | Enable debug log level for k8s-netperf | true |
 | ES_SERVER | Server to send results | `None` (Please set your own that resembles https://USER:PASSWORD@HOSTNAME:443) |
@@ -91,7 +92,7 @@ $ NETPERF_VERSION=main VM=true POD=false LOCALNET=physnet LOCALNET_CONFIG=localn
 | METRICS | Enable collection of metrics by k8s-netperf | `false` when `PLATFORM=microshift`, otherwise `true` |
 | NETPERF_FILENAME | Filename of the k8s-netperf binary that run.sh executes | k8s-netperf |
 | NETPERF_URL | URL to download k8s-netperf | https://github.com/cloud-bulldozer/k8s-netperf/releases/download/${NETPERF_VERSION}/k8s-netperf_${OS}_${NETPERF_VERSION}_${ARCH}.tar.gz |
-| NETPERF_VERSION | k8s-netperf tag/version | v0.1.42 |
+| NETPERF_VERSION | k8s-netperf tag/version | v0.1.43 |
 | OS | System to run k8s-netperf | Linux |
 | PLATFORM | Target platform (`openshift` or `microshift`) | openshift |
 | POD | Run pod-network scenarios | true |
