@@ -60,7 +60,7 @@ These modes run VMs only (`--vm --pod=false`). Equivalent k8s-netperf invocation
 Bridge (requires virtctl):
 
 ```sh
-# k8s-netperf --pod=false --vm --bridge br0 --bridge-config bridgeNetwork.json --use-virtctl
+# k8s-netperf --pod=false --vm --bridge br0 --bridgeNetwork bridgeNetwork.json --use-virtctl
 $ VM=true POD=false BRIDGE=br0 BRIDGE_CONFIG=bridgeNetwork.json USE_VIRTCTL=true ./run.sh
 ```
 
@@ -81,7 +81,7 @@ $ NETPERF_VERSION=main VM=true POD=false LOCALNET=physnet LOCALNET_CONFIG=localn
 |-------------------------|--------------------------|---------|
 | ALL_SCENARIOS | Run all test scenarios (hostNetwork & podNetwork) | true |
 | BRIDGE | Bridge NAD name passed as `--bridge` | unset |
-| BRIDGE_CONFIG | Path to bridge VM IP JSON → `--bridge-config` (e.g. `bridgeNetwork.json`) | unset |
+| BRIDGE_CONFIG | Path to bridge VM IP JSON → `--bridgeNetwork` (e.g. `bridgeNetwork.json`) | unset |
 | CLEAN_UP | Clean-up resources created by k8s-netperf | true |
 | DEBUG | Enable debug log level for k8s-netperf | true |
 | ES_SERVER | Server to send results | `None` (Please set your own that resembles https://USER:PASSWORD@HOSTNAME:443) |
