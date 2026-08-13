@@ -1,0 +1,4 @@
+{
+  "localnetServerNetwork": "198.168.200.11/24",
+  "localnetClientNetwork": "198.168.200.12/24"
+}
