@@ -114,7 +114,10 @@ add_flag "vm" "${VM}"
 add_flag "pod" "${POD}"
 add_flag "udnl2" "${UDNL2}"
 add_flag "udnl3" "${UDNL3}"
-
+add_flag "bridge" "${BRIDGE}"
+add_flag "bridgeNetwork" "${BRIDGE_CONFIG}"
+add_flag "localnet" "${LOCALNET}"
+add_flag "localnet-config" "${LOCALNET_CONFIG}"
 # Add virtctl flag if VM mode is enabled
 if [ "${VM}" = true ]; then
   add_flag "use-virtctl" "${USE_VIRTCTL}"
